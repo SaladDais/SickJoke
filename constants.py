@@ -1,3 +1,13 @@
+"""
+Constants shared between LSL and Python
+
+Converted to LSL by generated_code.py.
+
+* Integer constants will be included as-is
+* Enums will be converted to LSL with prefixed values
+* NamedTuples will be treated as indices into strided lists
+"""
+
 import enum
 import os
 import typing

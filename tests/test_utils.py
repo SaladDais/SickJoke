@@ -2,9 +2,9 @@
 import math
 import unittest
 
-from . import serialize_list, deserialize_list
+from lummao import Vector, Quaternion, Key
 
-from lummao.vendor.lslopt.lslcommon import Vector, Quaternion, Key
+from . import serialize_list, deserialize_list
 
 
 class UtilsTests(unittest.IsolatedAsyncioTestCase):

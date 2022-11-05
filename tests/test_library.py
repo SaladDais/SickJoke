@@ -3,9 +3,9 @@ import unittest
 import unittest.mock
 from typing import *
 
-from . import serialize_list, deserialize_list, BaseMessagingTestCase, LinkMessage
+from lummao import Vector, Quaternion, Key
 
-from lummao.vendor.lslopt.lslcommon import Vector, Quaternion, Key
+from . import serialize_list, deserialize_list, BaseMessagingTestCase, LinkMessage
 
 from pythonized import library
 from constants import *

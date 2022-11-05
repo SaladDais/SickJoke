@@ -29,6 +29,34 @@ Everything in the `compiled/` directory should be a script in a prim in SL.
 * `python lsl_to_notecard.py some_script.lsl`
 * Copy the output to a notecard named "script" in the same prim.
 
+## Design
+
+### Manager Script
+
+* Handles all inbound events (touch, listen, etc) and queues to send to the interpreter
+* Reads code sections from the code notecard and feeds them to the interpreter as needed
+* Knows what event handlers live where in the code notecard
+* Maintains a cache of recently-read sections to speed up jumps around the script
+* The script that actually handles perms and things given script-specific calls like `llRequestPermissions()`
+
+### Interpreter Script
+
+* The thing that actually runs all the code, other than library functions
+* Only holds and executes a small slice of the code at a time, asks the Manager when it needs more
+* Has one list for code, another for the stack and local vars, and another for globals
+* Yields execution and sends a link message whenever it runs into a command like `llSay()`
+
+### Library Scripts
+
+* Only exist to receive and handle arbitrary `llWhatever()` calls from the Interpreter
+* There are three of them to avoid violating script size limits.
+
+### Compiler
+
+* LSL -> IR step at https://github.com/SaladDais/Lummao/blob/master/src/json_ir_pass.cc
+* IR -> Assembly step at https://github.com/SaladDais/SickJoke/blob/master/ir2asm.py
+* Assembly -> packed notecard at https://github.com/SaladDais/SickJoke/blob/master/assembler.py
+
 ## Usage
 
 You don't want to use this.
