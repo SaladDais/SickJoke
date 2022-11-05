@@ -27,7 +27,9 @@ fi
 
 pushd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null
 
+mkdir -p generated
 python generate_code.py
+
 mkdir -p compiled
 mkdir -p pythonized
 rm -f compiled/*
