@@ -1,5 +1,7 @@
 # SickJoke
 
+[![codecov](https://codecov.io/github/SaladDais/SickJoke/branch/master/graph/badge.svg?token=ZSRLNVAK05)](https://codecov.io/github/SaladDais/SickJoke)
+
 SickJoke is a [meta-circular interpreter](https://en.wikipedia.org/wiki/Meta-circular_evaluator)
 for LSL written in LSL. Basically, it's a set of LSL scripts that run LSL scripts.
 It passes all the official LSL conformance tests, and can run non-trivial LSL scripts,
