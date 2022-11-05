@@ -57,6 +57,28 @@ Everything in the `compiled/` directory should be a script in a prim in SL.
 * IR -> Assembly step at https://github.com/SaladDais/SickJoke/blob/master/ir2asm.py
 * Assembly -> packed notecard at https://github.com/SaladDais/SickJoke/blob/master/assembler.py
 
+## Example Converted Script
+
+```lsl
+default {
+    state_entry() {
+        llSay(0, "Hello, Avatar!");
+    }
+
+    touch_start(integer total_number) {
+        llSay(0, "Touched.");
+    }
+}
+```
+
+Above script converted with `python lsl_to_notecard.py hello_avatar.lsl`:
+
+```
+[31,1,36,7]
+[0,0]
+[14,6,0,134,"<Hello, Avatar!>",354447,14,6,0,134,"<Touched.>",354447,78]
+```
+
 ## Usage
 
 You don't want to use this.
