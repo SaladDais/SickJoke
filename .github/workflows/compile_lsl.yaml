@@ -1,0 +1,55 @@
+name: Compile LSL and run tests
+
+on:
+  push:
+    paths-ignore:
+      - '*.md'
+  pull_request:
+    paths-ignore:
+      - '*.md'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        # Pull in and compile Lummao and all of its dependencies
+        # Download and install LSL-PyOptimizer
+        git clone https://github.com/Sei-Lisa/LSL-PyOptimizer.git pyoptimizer
+        export "LSL_PYOPTIMIZER_PATH=$(pwd)/pyoptimizer"
+        echo "LSL_PYOPTIMIZER_PATH=${LSL_PYOPTIMIZER_PATH}" >> $GITHUB_ENV
+        pip install pytest pytest-cov lummao
+
+    - name: Compile
+      run: |
+        bash compile.sh
+
+    - name: Test with pytest
+      run: |
+        pytest --cov=./pythonized --cov-report term --cov-report xml tests/
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage.xml
+        directory: ./coverage/reports/
+        flags: unittests
+        env_vars: OS,PYTHON
+        name: codecov-umbrella
+        fail_ci_if_error: false
+        path_to_write_report: ./coverage/codecov_report.txt
+        verbose: false

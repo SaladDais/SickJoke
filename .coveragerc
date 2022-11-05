@@ -1,0 +1,19 @@
+[report]
+# Regexes for lines to exclude from consideration
+exclude_lines =
+    # Have to re-enable the standard pragma
+    pragma: no cover
+
+    # Don't complain if tests don't hit defensive assertion code:
+    raise NotImplementedError
+    pass
+
+    # Don't complain about ellipsis in overload
+    \.\.\.
+
+    # We don't need coverage of literally every library function
+    (el)?if cond\(req\(\d+, _lib_num\)\)
+
+    # These are just assert guards, we don't expect them to happen.
+    self\.lslAssert\(0\)
+    def lslAssert\(

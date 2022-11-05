@@ -1,0 +1,56 @@
+VM DESIGN
+
+Largely stack-based, with a handful of registers and a separate global
+variables array. A typed stack is used, and there is no serialization or
+deserialization step on push / pop other than for lists. Types that are
+typically "heap" types like strings are directly represented on the stack
+rather than as pointers to values elsewhere.
+
+REGISTERS
+    IP:  Instruction Pointer
+           Current bytecode index to process, relative to start of
+           the currently loaded code chunk (gCode array.) Whenever
+           a new code chunk is loaded, IP is recalculated relative to
+           the new IPB register value.
+    IPB: Instruction Pointer Base
+           Absolute index of the first opcode in the currently loaded code
+           chunk (gCode array). `IP + IPB` == global index of current opcode
+           This is expected to change whenever a new code chunk is loaded.
+    BP:  Base Pointer
+           Absolute pointer to the index on the stack where the current stack
+           frame's local variables start
+    SP:  Stack Pointer
+           Absolute pointer to the index on the stack where the current stack
+           frame's local variables end, and ephemeral stack begins. Not really used.
+
+There is no direct read or write access to registers from bytecode, bytecode
+may only manipulate the stack or globals.
+
+
+STACK FRAMES
+
+A typical stack frame should look like this during a call:
+
+    ANY retval_slot < may or may not be here, void funcs don't require this slot!
+                      It's up to the caller to push an empty here if needed.
+                      the callee should place the retval in here before executing RET.
+                      By convention an int is pushed here since it's the smallest.
+    ANY arg_0 < These get popped off by the RET instruction, which has an operand
+                specifying how many args to pop.
+    ANY arg_1
+    ANY arg_n ...
+    INT prev_global_ip < IP + IPB registers at the time the call was made
+    INT prev_bp < BP register at the time the call was made
+    INT prev_sp < SP register at the time the call was made
+    ANY local_0 < Local variable, should be pushed at the entrypoint of the function
+                  BP register should point here!
+    ANY local_1
+    ANY local_n ...
+    ANY stack_ephem_0 < Ephemeral stack, temporary space for expressions, SP register
+                        should point here!
+    ANY stack_ephem_1
+    ANY stack_ephem_n ...
+
+OPCODES
+
+See constants.py for an opcode reference.
