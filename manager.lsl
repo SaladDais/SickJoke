@@ -1,8 +1,8 @@
-#include "generated/constants.lsli"
-#include "include/macros.lsli"
-#include "include/typed_json.lsli"
+#include "generated/constants.inc.lsl"
+#include "include/macros.inc.lsl"
+#include "include/typed_json.inc.lsl"
 
-#include "extern/key_compression.lsli"
+#include "extern/key_compression.inc.lsl"
 
 // information about what instruction pointer starts on which notecard
 // line. Assumes the list is sorted in ascending order, according to IP.
@@ -287,7 +287,7 @@ default {
             }
 
 // auto-generated wrappers for functions that must be executed from the manager script
-#           include "generated/manager_funcs.lsli"
+#           include "generated/manager_funcs.inc.lsl"
 
             else if ((det_func_offset = llListFindList(DETECTED_FUNC_OFFSETS, (list)lib_num)) != -1) {
                 ret_type = LIBFUNCRET_SIMPLE;

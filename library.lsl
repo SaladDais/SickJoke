@@ -4,4 +4,4 @@
 #define INCLUDE_LIBRARY_NUM_0
 #define INCLUDE_LIBRARY_NUM_1
 #define INCLUDE_LIBRARY_NUM_2
-#include "include/library_template.lsli"
+#include "include/library_template.inc.lsl"

@@ -1,6 +1,6 @@
-#include "generated/constants.lsli"
-#include "include/macros.lsli"
-#include "include/typed_json.lsli"
+#include "generated/constants.inc.lsl"
+#include "include/macros.inc.lsl"
+#include "include/typed_json.inc.lsl"
 
 // we assume that the code list can have typed literals, within reason.
 // notably, list literals and key literals may not be present.

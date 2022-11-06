@@ -4,9 +4,9 @@
 // due to the 64kb bytecode limit in Mono. Just having all of the function
 // calls we need puts us over the limit if we use one script!
 
-#include "generated/constants.lsli"
-#include "include/macros.lsli"
-#include "include/typed_json.lsli"
+#include "generated/constants.inc.lsl"
+#include "include/macros.inc.lsl"
+#include "include/typed_json.inc.lsl"
 
 lslAssert(integer val) {
     if (!val) {
@@ -32,13 +32,13 @@ default {
             // give the following "else if"s something to chain off.
             if (FALSE) { ; }
 #ifdef INCLUDE_LIBRARY_NUM_0
-#           include "generated/library_funcs_0.lsli"
+#           include "generated/library_funcs_0.inc.lsl"
 #endif
 #ifdef INCLUDE_LIBRARY_NUM_1
-#           include "generated/library_funcs_1.lsli"
+#           include "generated/library_funcs_1.inc.lsl"
 #endif
 #ifdef INCLUDE_LIBRARY_NUM_2
-#           include "generated/library_funcs_2.lsli"
+#           include "generated/library_funcs_2.inc.lsl"
 #endif
             // might be handled by a different library script.
             else {

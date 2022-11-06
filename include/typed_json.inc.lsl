@@ -1,5 +1,5 @@
 #pragma once
-#include "macros.lsli"
+#include "macros.inc.lsl"
 
 // Type-preserving list<->JSON serialization for heterogenous lists. About 2x faster
 // than TightListType* examples on LSL wiki.

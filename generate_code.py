@@ -53,7 +53,7 @@ def _gen_func_wrapper(func_name, func):
 
 def main():
     # Convert our constants from Python to LSL so that we know we're using the same values in both
-    with open("generated/constants.lsli", "w") as f:
+    with open("generated/constants.inc.lsl", "w") as f:
         for func_name, func in constants.LIBRARY_FUNCS.items():
             f.write(f"integer LIBFUNC_{func_name.upper()} = {func.num};\n")
         f.write("\n")
@@ -112,7 +112,7 @@ def main():
     # we might want to dynamically call a function by ID we need a "real" call to that function
     # somewhere. That's all these "library" script chunks do.
     for i, funcs_chunk in enumerate(_to_chunks(list(constants.LIBRARY_FUNCS.items()), 200)):
-        with open(f"generated/library_funcs_{i}.lsli", "w") as f:
+        with open(f"generated/library_funcs_{i}.inc.lsl", "w") as f:
             for func_name, func in funcs_chunk:
                 if func_name in constants.SPECIAL_FUNCTIONS:
                     # This function will be handled specially by the manager, we can't use
@@ -120,7 +120,7 @@ def main():
                     continue
                 f.write(_gen_func_wrapper(func_name, func))
 
-    with open(f"generated/manager_funcs.lsli", "w") as f:
+    with open(f"generated/manager_funcs.inc.lsl", "w") as f:
         for func_name in sorted(constants.MANAGER_AUTO_FUNCTIONS):
             func = constants.LIBRARY_FUNCS[func_name]
             f.write(_gen_func_wrapper(func_name, func))
