@@ -48,11 +48,23 @@ class LinkMessage(Sequence):
         return f"{self.__class__.__name__}({self.num!r}, {self.string!r}, {self.key!r})"
 
 
-class MockNotecardHandler:
-    def __init__(self, script, name: str, text: str):
+class MockNotecard:
+    def __init__(self, name: str, text: str):
         self.name = name
         self.text = text
+
+    def get_line(self, line_no: int):
+        try:
+            return self.text.split("\n")[line_no]
+        except IndexError:
+            # Bad line number returns EOF (three newlines)
+            return "\n\n\n"
+
+
+class MockNotecardHandler:
+    def __init__(self, script, notecards: List[MockNotecard]):
         self.script = script
+        self.notecards = notecards
         self._req_num = 0
 
     def get_key(self, name: str):
@@ -61,13 +73,14 @@ class MockNotecardHandler:
         return Key(uuid.UUID(int=0))
 
     def get_line(self, name: str, line: int):
-        assert(name == self.name)
-        assert(line >= 0)
-        try:
-            line_text = self.text.split("\n")[line]
-        except IndexError:
-            # Bad line number returns EOF (three newlines)
-            line_text = "\n\n\n"
+        assert (line >= 0)
+        for nc in self.notecards:
+            if nc.name == name:
+                line_text = nc.get_line(line)
+                break
+        else:
+            raise KeyError(f"Unknown notecard {name}")
+
         self._req_num += 1
         req_id = Key(uuid.UUID(int=self._req_num))
         self.script.queue_event("dataserver", (req_id, line_text))

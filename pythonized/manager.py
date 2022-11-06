@@ -329,7 +329,14 @@ class Script(BaseLSLScript):
             self.gFetchingIP = _last_valid_ip
             self.gFetchingNCAndLine = _last_valid_line
             self.gLoadState = 3
-            self.gNotecardRequestID = await self.builtin_funcs.llGetNotecardLine("script", radd(self.gHeaderLines, _last_valid_line))
+            _notecard_num: int = rbitand(65535, rshr(16, _last_valid_line))
+            _line_num: int = rbitand(65535, _last_valid_line)
+            _notecard_name: str = "script"
+            if cond(_notecard_num):
+                _notecard_name = radd(typecast(_notecard_num, str), _notecard_name)
+            else:
+                _line_num = radd(self.gHeaderLines, _line_num)
+            self.gNotecardRequestID = await self.builtin_funcs.llGetNotecardLine(_notecard_name, _line_num)
         elif cond(req(61954, _num)):
             self.gInvokingHandler = 0
             await self.sendQueuedEvent()

@@ -13,7 +13,10 @@ def main():
     assembler = Assembler()
     converted_ir = converter.convert()
     assembler.assemble(converted_ir)
-    print(assembler.pack())
+    for i, notecard in enumerate(assembler.pack()):
+        print(f"### 'script{str(i) if i else ''}' notecard contents: ###")
+        print(notecard)
+        print("")
 
 
 if __name__ == "__main__":

@@ -14,13 +14,12 @@ from unittest.mock import Mock
 
 from lummao import BaseLSLScript, convert_script_to_ir
 
-from assembler import Assembler
+from assembler import Assembler, types_to_str
 from constants import *
 from ir2asm import IRConverter
 from pythonized import interpreter, library, manager
 
-from . import MockNotecardHandler
-
+from . import MockNotecardHandler, MockNotecard
 
 BASE_PATH = pathlib.Path(os.path.dirname(os.path.abspath(__file__)))
 RESOURCES_PATH = BASE_PATH / "test_resources"
@@ -59,8 +58,9 @@ class IntegrationTests(unittest.IsolatedAsyncioTestCase):
 
         self.message_propagator = LinkMessagePropagator(self.scripts)
         self.message_propagator.patch_scripts()
-        self.mock_notecard = MockNotecardHandler(self.manager_script, "script", "")
-        self.mock_notecard.patch_script()
+        self.notecard = MockNotecard("script", "")
+        self.notecard_handler = MockNotecardHandler(self.manager_script, [self.notecard])
+        self.notecard_handler.patch_script()
 
     def _patch_builtins(self, script: BaseLSLScript):
         base_builtins = script.builtin_funcs
@@ -99,7 +99,7 @@ default {
     }
 }
 """)
-        self.mock_notecard.text = assembler.pack()
+        self.notecard.text = assembler.pack()[0]
         target_mock = Mock()
         self.manager_script.builtin_funcs['llStopMoveToTarget'] = target_mock
         await self.execute_scripts()
@@ -108,7 +108,7 @@ default {
     async def test_lsl_conformance(self):
         with open(RESOURCES_PATH / "lsl_conformance.lsl", "rb") as f:
             assembler = self._script_to_asm(f.read())
-        self.mock_notecard.text = assembler.pack()
+        self.notecard.text = assembler.pack()[0]
         await self.execute_scripts()
         # Check test failed / passed numbers
         self.assertEqual(188, self.interp_script.gGlobals[0])
@@ -117,8 +117,37 @@ default {
     async def test_lsl_conformance2(self):
         with open(RESOURCES_PATH / "lsl_conformance2.lsl", "rb") as f:
             assembler = self._script_to_asm(f.read())
-        self.mock_notecard.text = assembler.pack()
+        self.notecard.text = assembler.pack()[0]
         await self.execute_scripts()
         # Check test failed / passed numbers
         self.assertEqual(69, self.interp_script.gGlobals[0])
         self.assertEqual(0, self.interp_script.gGlobals[1])
+
+    async def test_long_script(self):
+        assembler = Assembler()
+        opcodes = [
+            [OpCode.ALLOC_SLOTS, Whence.GLOBAL, types_to_str((LSLType.INTEGER,))],
+            [OpCode.PUSH, LSLType.INTEGER, Whence.CONST, 0, 0],
+        ]
+
+        for _ in range(0x2Fff):
+            opcodes.extend([
+                [OpCode.PUSH, LSLType.INTEGER, Whence.CONST, 0, 1],
+                [OpCode.BIN_OP, Operation.PLUS, LSLType.INTEGER, LSLType.INTEGER],
+            ])
+
+        opcodes.extend([
+            [OpCode.STORE, LSLType.INTEGER, Whence.GLOBAL, 0],
+            [OpCode.RET, 0],
+        ])
+
+        assembler.assemble(opcodes)
+        self.notecard_handler.notecards.clear()
+
+        new_notecards = []
+        for i, notecard_text in enumerate(assembler.pack()):
+            new_notecards.append(MockNotecard(f"script{str(i) if i else ''}", notecard_text))
+        self.assertTrue(len(new_notecards) > 1)
+        self.notecard_handler.notecards = new_notecards
+        await self.execute_scripts()
+        self.assertEqual(0x2Fff, self.interp_script.gGlobals[0])

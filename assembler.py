@@ -34,9 +34,17 @@ def types_to_str(types):
     return "".join((str(int(x)) for x in types))
 
 
+def _to_chunks(chunkable, chunk_size: int):
+    while chunkable:
+        yield chunkable[:chunk_size]
+        chunkable = chunkable[chunk_size:]
+
+
 class Assembler:
     # Actually 1024 (incl newline) but let's be conservative.
     MAX_LINE = 500
+    # Actually 64k
+    MAX_NOTECARD = 60000
 
     def __init__(self):
         self.assembled = []
@@ -160,13 +168,8 @@ class Assembler:
         no_wait <<= 16
         return [int(OpCode.CALL_LIB | ((num_args | lib_func | no_wait) << OPCODE_WIDTH))]
 
-    def pack(self) -> str:
+    def pack(self) -> List[str]:
         packed_handlers = []
-        # Make a flattened strided list of line number -> instruction pointer
-        line_ips = []
-        for i, ip in enumerate(self.lines):
-            # TODO: multi-notecard support
-            line_ips.extend(CodeIndex(ip=ip, nc_and_line=i))
 
         for handler, ip in self.event_handlers.items():
             event_num = EVENTS[handler.event].num
@@ -179,4 +182,28 @@ class Assembler:
             split_code.insert(0, self.assembled[line_start:last_start])
             last_start = line_start
 
-        return "\n".join(pack_json(v) for v in (packed_handlers, line_ips, *split_code))
+        # Split the code across multiple notecards if necessary
+        notecard_chunks = list(_to_chunks(split_code, self.MAX_NOTECARD // self.MAX_LINE))
+
+        # Make a flattened strided list of line number -> instruction pointer
+        line_ips = []
+        line_idx = 0
+        for notecard_num, notecard_chunk in enumerate(notecard_chunks):
+            for notecard_line in range(len(notecard_chunk)):
+                # Keep track of what lines ended up in which notecard
+                nc_and_line = (notecard_num << 16) | notecard_line
+                line_ips.extend(CodeIndex(ip=self.lines[line_idx], nc_and_line=nc_and_line))
+                line_idx += 1
+
+        first_notecard = True
+        notecards = []
+        for notecard_chunk in notecard_chunks:
+            if first_notecard:
+                # First notecard has the headers just above the code chunks
+                notecards.append("\n".join(pack_json(v) for v in (packed_handlers, line_ips, *notecard_chunk)))
+            else:
+                # Every notecard after the first notecard is just code chunks
+                notecards.append("\n".join(pack_json(v) for v in notecard_chunk))
+            first_notecard = False
+
+        return notecards

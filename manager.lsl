@@ -241,11 +241,22 @@ default {
                 }
             }
 
-            // TODO: multi-notecard handling
             gFetchingIP = last_valid_ip;
             gFetchingNCAndLine = last_valid_line;
             gLoadState = LOADSTATE_CODE;
-            gNotecardRequestID = llGetNotecardLine("script", last_valid_line + gHeaderLines);
+
+            // figure out which notecard number this belongs to, and what line the code
+            // should be on within that notecard
+            integer notecard_num = (last_valid_line >> 16) & 0xFFff;
+            integer line_num = last_valid_line & 0xFFff;
+            string notecard_name = "script";
+            if (notecard_num)
+                // notecards after the first script notecard get a suffix
+                notecard_name += (string)notecard_num;
+            else
+                // the first notecard has header lines that need to be skipped
+                line_num += gHeaderLines;
+            gNotecardRequestID = llGetNotecardLine(notecard_name, line_num);
         } else if (num == IPCTYPE_HANDLER_FINISHED) {
             // script finished a handler
             gInvokingHandler = FALSE;

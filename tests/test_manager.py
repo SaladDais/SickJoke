@@ -9,7 +9,7 @@ from lummao import Vector, Quaternion, Key
 from pythonized import manager
 from constants import *
 
-from . import BaseMessagingTestCase, serialize_list, LinkMessage, MockNotecardHandler
+from . import BaseMessagingTestCase, serialize_list, LinkMessage, MockNotecardHandler, MockNotecard
 
 TOUCH_START_NUM = EVENTS['touch_start'].num
 STATE_EXIT_NUM = EVENTS['state_exit'].num
@@ -30,8 +30,9 @@ class ManagerTests(BaseMessagingTestCase):
     async def asyncSetUp(self):
         self.script = manager.Script()
         await super().asyncSetUp()
-        self.notecard = MockNotecardHandler(self.script, "script", DEFAULT_NOTECARD)
-        self.notecard.patch_script()
+        self.notecard = MockNotecard("script", DEFAULT_NOTECARD)
+        self.notecard_handler = MockNotecardHandler(self.script, [self.notecard])
+        self.notecard_handler.patch_script()
 
     def _request_ip(self, ip: int):
         self.script.queue_event("link_message", LinkMessage(IPCType.REQUEST_CODE, "", Key(str(ip))))
@@ -273,6 +274,25 @@ class ManagerTests(BaseMessagingTestCase):
             LinkMessage(IPCType.INVOKE_HANDLER, await serialize_list([]), Key("3")),
         ]
         self.assertSequenceEqual(expected_messages, self.sent_messages)
+
+    async def test_multiple_notecards(self):
+        # Say the third line of code is actually on the first line of the second notecard.
+        self.notecard.text = f"""
+        [{TOUCH_START_NUM}, 1, {TIMER_NUM}, 2, {STATE_EXIT_NUM}, 3]
+[0,0, 5,1, 10,{(1 << 16) | 0}]
+line0
+line1
+""".lstrip()
+        notecard_2 = MockNotecard("script1", "line2")
+        self.notecard_handler.notecards.append(notecard_2)
+
+        # Allow the initial notecard loading to finish before we start making requests
+        await self.script.execute()
+
+        await self.assertRequestReturns(0, (0, "line0"))
+        await self.assertRequestReturns(5, (5, "line1"))
+        # This is in the second notecard, should still work fine.
+        await self.assertRequestReturns(11, (10, "line2"))
 
     async def test_compress_key(self):
         expected = Key(uuid.UUID(int=1))
