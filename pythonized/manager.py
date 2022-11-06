@@ -135,7 +135,7 @@ class Script(BaseLSLScript):
 
     async def uncompress_key(self, _s: str) -> Key:
         if cond(req("-", await self.builtin_funcs.llGetSubString(_s, 0, 0))):
-            return typecast(await self.builtin_funcs.llGetSubString(_s, 1, (typecast(-1, int))), Key)
+            return typecast(await self.builtin_funcs.llGetSubString(_s, 1, 2147483647), Key)
         elif cond(req("", _s)):
             return typecast("00000000-0000-0000-0000-000000000000", Key)
         _i: int = 0

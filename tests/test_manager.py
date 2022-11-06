@@ -298,6 +298,13 @@ class ManagerTests(BaseMessagingTestCase):
             await self.script.uncompress_key(await self.script.compress_key(expected))
         )
 
+        expected = Key("")
+        self.assertEqual(Key("-"), await self.script.compress_key(expected))
+        self.assertEqual(
+            expected,
+            await self.script.uncompress_key(await self.script.compress_key(expected))
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

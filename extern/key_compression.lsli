@@ -69,9 +69,12 @@ string pad_dash(string s) {
 }
  
 key uncompress_key(string s) {
+   // check for "-" prefix
    if (llGetSubString(s, 0, 0) == "-")
-      // this is a tagged string-like key.
-      return (key)llGetSubString(s, 1, -1);
+      // this is a tagged string-like key. Can't use -1 to mean the
+      // end of the string because that will include the "-" if this is
+      // a zero-length string.
+      return (key)llGetSubString(s, 1, 0x7FffFFff);
    else if (s)
       ;
    else
