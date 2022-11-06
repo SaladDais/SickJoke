@@ -286,10 +286,6 @@ class CodeIndex(typing.NamedTuple):
     nc_and_line: int
 
 
-# How many code lines to keep in the cache
-NUM_CACHED_CODES = 20
-
-
 @_lsl_namedtuple
 class CachedCode(typing.NamedTuple):
     """An entry in the Manager's LRU code cache"""
@@ -298,6 +294,11 @@ class CachedCode(typing.NamedTuple):
     # Used as a cache key
     nc_and_line: int
     code: typing.Union[str, int]  # only the placeholder is an int
+
+
+# How many code lines to keep in the cache
+NUM_CACHED_CODES = 20
+CACHED_CODES_LEN = NUM_CACHED_CODES * len(CachedCode.indices)
 
 
 @_lsl_namedtuple

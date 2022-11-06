@@ -222,7 +222,7 @@ default {
 
             // Check to see if we have the code in our cache so we don't have to eat
             // the cost of a forced llGetNotecardLine() sleep.
-            for(i=0; i<NUM_CACHED_CODES; i += CACHEDCODE_STRIDE) {
+            for(i=0; i<CACHED_CODES_LEN; i += CACHEDCODE_STRIDE) {
                 if (llList2Integer(gCachedCode, i + CACHEDCODE_NC_AND_LINE) == last_valid_line) {
                     // mark the code as having been read from the LRU cache
                     gCachedCode = llListReplaceList(
@@ -235,7 +235,6 @@ default {
                     // send off the code
                     string code_line = llList2String(gCachedCode, i + CACHEDCODE_CODE);
                     SEND_IPC(IPCTYPE_REQUEST_CODE_REPLY, code_line, last_valid_ip);
-
                     sortCachedCode();
                     return;
                 }

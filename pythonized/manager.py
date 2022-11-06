@@ -316,7 +316,7 @@ class Script(BaseLSLScript):
                     return
             _i = 0
             while True == True:
-                if not cond(rless(20, _i)):
+                if not cond(rless(60, _i)):
                     break
                 if cond(req(_last_valid_line, await self.builtin_funcs.llList2Integer(self.gCachedCode, neg(bitnot(_i))))):
                     self.gCachedCode = await self.builtin_funcs.llListReplaceList(radd(self.gCachedCode, (assign(self.__dict__, "gCachedCode", []))), typecast(self.gCodeRequestNum, list), _i, _i)
