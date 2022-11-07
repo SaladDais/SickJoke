@@ -43,6 +43,12 @@ string gBenchmarks = "{}";
 #   define END_OP_BENCHMARK(_name) (0)
 #endif
 
+#ifdef TRACING
+#   define TRACE(_str) llSetText((_str) + "\nIP: " + (string)(gIP + gIPB) + "\n" + "Free Mem: " + (string)llGetFreeMemory(), <1,1,1>, 1);
+#else
+#   define TRACE(_str) (0)
+#endif
+
 
 startBenchmark(string name) {
     gBenchmarks = llJsonSetValue(gBenchmarks, ["start", name], (string)llGetTime());
@@ -841,6 +847,7 @@ changeStateOp(integer state_num) {
 interpreterLoop() {
     gYielded = 0;
     while (!gCodeFetchNeeded && !gFault && !gYielded) {
+        TRACE("interp_loop");
         START_BENCHMARK("interpreter_loop");
         // we have to eat the cost of a 32-bit int, anyway, use any high bits
         // for arguments for the opcode. Putting args in the high bits has
@@ -962,9 +969,12 @@ interpreterLoop() {
     }
 
     if (gCodeFetchNeeded) {
+        TRACE("fetching code");
         START_BENCHMARK("code_fetch");
         // request the code starting at the current absolute IP
         SEND_IPC(IPCTYPE_REQUEST_CODE, "", gIPB + gIP);
+        gCode = [];
+        TRACE("asked for code");
     }
 }
 
@@ -990,11 +1000,13 @@ default {
             return;
         
         if (num == IPCTYPE_REQUEST_CODE_REPLY) {
-            gCode = [];
+            TRACE("handling code fetch reply");
             gCode = llJson2List(CLEARABLE_STR(str));
 
             // recalculate the IP relative to the new code section
             handleCodeReload((integer)((string)id));
+
+            TRACE("code fetch done");
 
             END_BENCHMARK("code_fetch");
 
@@ -1008,6 +1020,7 @@ default {
                 return;
             }
 #endif
+            TRACE("handling lib reply ");
             gExpectingCallLibReply = FALSE;
             // pop registers, arguments aren't on the stack at this point so they
             // don't need to be popped
@@ -1043,7 +1056,7 @@ default {
             // Manager should know better than to ask us to execute an event
             // handler while we're still in the middle of a previous one.
             LSL_ASSERT(!gInvokingHandler);
-
+            TRACE("handling invocation");
 #ifdef BENCHMARKING
             gBenchmarks = "{}";
 #endif
