@@ -24,7 +24,39 @@ integer gExpectingCallLibReply;
 
 list gStack = [];
 list gGlobals = [];
+string gBenchmarks = "{}";
 
+
+#ifdef BENCHMARKING
+#   define START_BENCHMARK(_name) (startBenchmark((_name)))
+#   define END_BENCHMARK(_name) (endBenchmark((_name)))
+#else
+#   define START_BENCHMARK(_name) (0)
+#   define END_BENCHMARK(_name) (0)
+#endif
+
+#ifdef OPCODE_BENCHMARKING
+#   define START_OP_BENCHMARK(_name) (startBenchmark((_name)))
+#   define END_OP_BENCHMARK(_name) (endBenchmark((_name)))
+#else
+#   define START_OP_BENCHMARK(_name) (0)
+#   define END_OP_BENCHMARK(_name) (0)
+#endif
+
+
+startBenchmark(string name) {
+    gBenchmarks = llJsonSetValue(gBenchmarks, ["start", name], (string)llGetTime());
+}
+
+endBenchmark(string name) {
+    string start_str = llJsonGetValue(gBenchmarks, ["start", name]);
+    // doesn't make sense to end a benchmark that never started
+    LSL_ASSERT(start_str != JSON_INVALID);
+    float start = (float)start_str;
+    float new = llGetTime() - start;
+    float old_total = (float)llJsonGetValue(gBenchmarks, ["totals", name]);
+    gBenchmarks = llJsonSetValue(gBenchmarks, ["totals", name], (string)(old_total + new));
+}
 
 resetVMState() {
     gCode = [];
@@ -212,6 +244,7 @@ callLibOp(integer num_args, integer lib_num, integer no_wait) {
     // Just because we've yielded doesn't mean that something else can kick off
     // another handler function, gInvokingHandler needs to be false for that!
     if (!no_wait) {
+        START_BENCHMARK("lib_call");
         // not really needed now, but might help if we add
         // async / await.
         gStack += [gIP + gIPB, gBP, gSP];
@@ -252,6 +285,10 @@ retOp(integer args_to_pop) {
             SEND_IPC(IPCTYPE_HANDLER_FINISHED, "", "");
         }
         gInvokingHandler = FALSE;
+
+#ifdef BENCHMARKING
+        llOwnerSay(llJsonGetValue(gBenchmarks, ["totals"]));
+#endif
     } else {
         // we're still executing, check if we need to fetch code
         // for the next instruction.
@@ -804,6 +841,7 @@ changeStateOp(integer state_num) {
 interpreterLoop() {
     gYielded = 0;
     while (!gCodeFetchNeeded && !gFault && !gYielded) {
+        START_BENCHMARK("interpreter_loop");
         // we have to eat the cost of a 32-bit int, anyway, use any high bits
         // for arguments for the opcode. Putting args in the high bits has
         // the benefit that the string form of opcodes with fewer args will be
@@ -817,22 +855,30 @@ interpreterLoop() {
         if (op == OPCODE_NO_OP) {
             ;
         } else if (op == OPCODE_BIN_OP) {
+            START_OP_BENCHMARK("op_bin_op");
             binOp(args & 0xFF, (args >> 8) & 0xFF, (args >> 16) & 0xFF);
             // belatedly pop the two operands
             popStack(-3, -2);
+            END_OP_BENCHMARK("op_bin_op");
         } else if (op == OPCODE_UN_OP) {
+            START_OP_BENCHMARK("op_un_op");
             unOp(args & 0xFF, (args >> 8) & 0xFF);
             popStack(-2, -2);
+            END_OP_BENCHMARK("op_un_op");
         } else if (op == OPCODE_PUSH) {
             // what type to push (5 bits)
             // which storage to push from (3 bits)
             // index to push from (16 bits signed)
+            START_OP_BENCHMARK("op_push");
             pushOp(args & 0xF, (args >> 5) & 0x3, args >> 8);
+            END_OP_BENCHMARK("op_push");
         } else if (op == OPCODE_STORE || op == OPCODE_STORE_DEFAULT) {
             // what type to store (5 bits)
             // which storage to store to (3 bits)
             // index to store to (16 bits signed)
+            START_OP_BENCHMARK("op_store");
             storeOp(op, args & 0xF, (args >> 5) & 0x3, args >> 8);
+            END_OP_BENCHMARK("op_store");
         } else if (op == OPCODE_DUMP) {
 #ifdef DEBUG
             print(llList2String(gStack, -1));
@@ -841,48 +887,82 @@ interpreterLoop() {
 #endif
             popStack(-1, -1);
         } else if (op == OPCODE_DUP) {
+            START_OP_BENCHMARK("op_dup");
             gStack += llList2List(gStack, -1, -1);
+            END_OP_BENCHMARK("op_dup");
         } else if (op == OPCODE_POP_N) {
+            START_OP_BENCHMARK("op_pop_n");
             popStack(-1 * args, -1);
+            END_OP_BENCHMARK("op_pop_n");
         } else if (op == OPCODE_CAST) {
+            START_OP_BENCHMARK("op_cast");
             castOp(args & 0xFF, (args >> 8) & 0xFF);
+            END_OP_BENCHMARK("op_cast");
         } else if (op == OPCODE_BOOL) {
+            START_OP_BENCHMARK("op_bool");
             boolOp(args);
+            END_OP_BENCHMARK("op_bool");
         } else if (op == OPCODE_ALLOC_SLOTS) {
+            START_OP_BENCHMARK("op_alloc_slots");
             allocSlotsOp(args & 0xFF);
+            END_OP_BENCHMARK("op_alloc_slots");
         } else if (op == OPCODE_JUMP) {
             // we want the sign extension behaviour on args here,
             // the jump target is signed!
+            START_OP_BENCHMARK("op_jump");
             jumpOp(args & 0x3, args >> 3);
+            END_OP_BENCHMARK("op_jump");
         } else if (op == OPCODE_CALL) {
+            START_OP_BENCHMARK("op_call");
             callOp(args & 0x3, args >> 3);
+            END_OP_BENCHMARK("op_call");
         } else if (op == OPCODE_CALL_LIB) {
+            START_OP_BENCHMARK("op_call_lib");
             callLibOp(args & 0x0F, (args >> 4) & 0xFFf, args >> 16);
+            END_OP_BENCHMARK("op_call_lib");
         } else if (op == OPCODE_RET) {
+            START_OP_BENCHMARK("op_ret");
             retOp(args);
+            END_OP_BENCHMARK("op_ret");
         } else if (op == OPCODE_SWAP) {
+            START_OP_BENCHMARK("op_swap");
             swapOp();
-        } else if (op == OPCODE_BUILD_LIST){
+            END_OP_BENCHMARK("op_swap");
+        } else if (op == OPCODE_BUILD_LIST) {
+            START_OP_BENCHMARK("op_build_list");
             buildListOp(args);
+            END_OP_BENCHMARK("op_build_list");
         } else if (op == OPCODE_BUILD_COORD) {
+            START_OP_BENCHMARK("op_build_coord");
             buildCoordOp(args & 0xFF);
+            END_OP_BENCHMARK("op_build_coord");
         } else if (op == OPCODE_YIELD) {
+            START_OP_BENCHMARK("op_yield");
             yieldOp(args);
+            END_OP_BENCHMARK("op_yield");
         } else if (op == OPCODE_TAKE_MEMBER) {
+            START_OP_BENCHMARK("op_take_member");
             takeMemberOp(args & 0xFF, (args >> 8) & 0xFF);
+            END_OP_BENCHMARK("op_take_member");
         } else if (op == OPCODE_REPLACE_MEMBER) {
+            START_OP_BENCHMARK("op_replace_member");
             replaceMemberOp(args & 0xFF, (args >> 8) & 0xFF);
+            END_OP_BENCHMARK("op_replace_member");
         } else if (op == OPCODE_CHANGE_STATE) {
+            START_OP_BENCHMARK("op_change_state");
             changeStateOp(args & 0xFF);
+            END_OP_BENCHMARK("op_change_state");
         } else {
             LSL_ASSERT(0);
         }
 
         // Check if we ran off the end of the code line
         checkCodeFetchNeeded();
+        END_BENCHMARK("interpreter_loop");
     }
 
     if (gCodeFetchNeeded) {
+        START_BENCHMARK("code_fetch");
         // request the code starting at the current absolute IP
         SEND_IPC(IPCTYPE_REQUEST_CODE, "", gIPB + gIP);
     }
@@ -916,6 +996,8 @@ default {
             // recalculate the IP relative to the new code section
             handleCodeReload((integer)((string)id));
 
+            END_BENCHMARK("code_fetch");
+
             // we have the code we were waiting on, re-enter the interpretation loop
             if (!gExpectingCallLibReply)
                 interpreterLoop();
@@ -947,6 +1029,8 @@ default {
                 LSL_ASSERT(0);
             }
 
+            END_BENCHMARK("lib_call");
+
             // we can re-enter the interpretation loop since we have
             // the reply the call_lib opcode was waiting on.
             if (!gCodeFetchNeeded)
@@ -959,6 +1043,10 @@ default {
             // Manager should know better than to ask us to execute an event
             // handler while we're still in the middle of a previous one.
             LSL_ASSERT(!gInvokingHandler);
+
+#ifdef BENCHMARKING
+            gBenchmarks = "{}";
+#endif
 
             gInvokingHandler = TRUE;
             gStack += DESERIALIZE_LIST(CLEARABLE_STR(str));
