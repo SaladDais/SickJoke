@@ -7,7 +7,7 @@ for LSL written in LSL. Basically, it's a set of LSL scripts that run LSL script
 It passes all the official LSL conformance tests, and can run non-trivial LSL scripts,
 albeit slowly.
 
-I made the mistake making a joke about writing an LSL interpreter in LSL that read scripts
+I made the mistake of making a joke about writing an LSL interpreter in LSL that read scripts
 from notecards. The joke went too far. I ended up writing most of the interpreter when I
 had the flu, so... SickJoke, I guess.
 
@@ -33,7 +33,7 @@ Everything in the `compiled/` directory should be a script in a prim in SL.
 
 ### Manager Script
 
-* Handles all inbound events (touch, listen, etc) and queues to send to the interpreter
+* Handles all inbound events (touch, listen, etc) and queues them to send to the interpreter
 * Reads code sections from the code notecard and feeds them to the interpreter as needed
 * Knows what event handlers live where in the code notecard
 * Maintains a cache of recently-read sections to speed up jumps around the script
