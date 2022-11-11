@@ -15,7 +15,7 @@ import typing
 from lummao import Key
 
 
-OPCODE_WIDTH = 6
+OPCODE_WIDTH = 5
 # How many registers get pushed when we CALL
 CALL_REGISTERS_LEN = 3
 
@@ -297,7 +297,7 @@ class CachedCode(typing.NamedTuple):
 
 
 # How many code lines to keep in the cache
-NUM_CACHED_CODES = 20
+NUM_CACHED_CODES = 15
 CACHED_CODES_LEN = NUM_CACHED_CODES * len(CachedCode.indices)
 
 

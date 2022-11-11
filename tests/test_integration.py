@@ -9,7 +9,7 @@ what LSL would do.
 import asyncio
 import pathlib
 import unittest
-from typing import Sequence, Callable, Union
+from typing import Sequence, Callable, Union, List
 from unittest.mock import Mock
 
 from lummao import BaseLSLScript, convert_script_to_ir
@@ -19,7 +19,7 @@ from constants import *
 from ir2asm import IRConverter
 from pythonized import interpreter, library, manager
 
-from . import MockNotecardHandler, MockNotecard
+from . import MockNotecardHandler, MockNotecard, LinkMessage
 
 BASE_PATH = pathlib.Path(os.path.dirname(os.path.abspath(__file__)))
 RESOURCES_PATH = BASE_PATH / "test_resources"
@@ -29,6 +29,7 @@ class LinkMessagePropagator:
     """Passes outbound link messages to all other scripts in the set"""
     def __init__(self, scripts: Sequence[BaseLSLScript]):
         self.scripts = scripts
+        self.sent_messages: List[LinkMessage] = []
 
     def patch_scripts(self):
         for script in self.scripts:
@@ -38,10 +39,10 @@ class LinkMessagePropagator:
         """Make a version of llMessageLinked that will queue link_messages on other scripts"""
         def _send_message(link_num, num, string, key):
             for other_script in self.scripts:
-                if other_script is script:
-                    # Don't send messages to ourselves
-                    continue
+                # Scripts can hear their own link_messages, so don't bypass sending
+                # the event to the sending script!
                 other_script.queue_event("link_message", (link_num, num, string, key))
+            self.sent_messages.append(LinkMessage(num, string, key))
         return _send_message
 
 

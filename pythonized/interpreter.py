@@ -652,8 +652,8 @@ class Script(BaseLSLScript):
         self.gYielded = 0
         while cond(boolnot((rbitor(self.gYielded, rbitor(self.gFault, self.gCodeFetchNeeded))))):
             _read: int = await self.builtin_funcs.llList2Integer(self.gCode, self.gIP)
-            _op: int = rbitand(63, _read)
-            _args: int = rshr(6, _read)
+            _op: int = rbitand(31, _read)
+            _args: int = rshr(5, _read)
             self.gIP += 1
             if cond(_op):
                 if cond(boolnot(bitnot(neg(_op)))):
