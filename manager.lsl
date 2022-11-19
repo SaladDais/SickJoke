@@ -4,6 +4,12 @@
 
 #include "extern/key_compression.inc.lsl"
 
+#ifdef TRACING
+#   define TRACE(_str) llSetText((_str) + "\nRequest Num: " + (string)(gCodeRequestNum) + "\n" + "Free Mem: " + (string)llGetFreeMemory(), <1,1,1>, 1);
+#else
+#   define TRACE(_str) (0)
+#endif
+
 // information about what instruction pointer starts on which notecard
 // line. Assumes the list is sorted in ascending order, according to IP.
 list gCodeLines = [];
@@ -175,6 +181,7 @@ default {
     }
 
     link_message(integer sender_num, integer num, string str, key id) {
+        TRACE("link message: " + (string)num);
         if (num >= IPCTYPE_MAX || num <= IPCTYPE_MIN) {
             // This isn't a link message internal to us, we can forward it to the interpreter
             invokeEventHandler(EH_LINK_MESSAGE, [sender_num, num, CLEARABLE_STR(str), id], 0);

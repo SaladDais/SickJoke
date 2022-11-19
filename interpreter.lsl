@@ -44,7 +44,7 @@ string gBenchmarks = "{}";
 #endif
 
 #ifdef TRACING
-#   define TRACE(_str) llSetText((_str) + "\nIP: " + (string)(gIP + gIPB) + "\n" + "Free Mem: " + (string)llGetFreeMemory(), <1,1,1>, 1);
+#   define TRACE(_str) llSetText((_str) + "\nIP: " + (string)(gIP + gIPB) + "\n" + "Free Mem: " + (string)llGetFreeMemory() + "\n" + "Stack: " + (string)llGetListLength(gStack), <1,1,1>, 1);
 #else
 #   define TRACE(_str) (0)
 #endif
