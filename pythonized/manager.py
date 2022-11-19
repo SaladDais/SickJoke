@@ -28,7 +28,7 @@ class Script(BaseLSLScript):
         self.LIBFUNC_LLDETECTEDKEY = 47
         self.LIBFUNC_LLDETECTEDOWNER = 50
         self.LSLTYPE_KEY = 3
-        self.SPECIAL_FUNCTIONS = [12, 13, 20, 21, 26, 38, 44, 47, 50, 62, 83, 86, 90, 91, 160, 161, 198, 210, 249, 250, 251, 255, 264, 266, 270, 299, 315, 321, 325, 326, 327, 328, 338, 358, 362, 405, 418, 422, 424, 426, 427, 436, 442, 448]
+        self.SPECIAL_FUNCTIONS = [12, 13, 20, 21, 26, 38, 44, 47, 50, 62, 83, 86, 90, 91, 160, 161, 198, 210, 260, 261, 262, 266, 275, 277, 281, 310, 326, 332, 336, 337, 338, 339, 349, 369, 373, 416, 429, 433, 435, 437, 438, 447, 453, 459]
         self.gCodeLines = []
         self.gEventHandlers = []
         self.gCachedCode = []
@@ -343,9 +343,9 @@ class Script(BaseLSLScript):
         elif cond(req(61959, _num)):
             await self.lslAssert(self.gInvokingHandler)
             self.gQueuedEvents = []
-            await self.invokeEventHandler(32, [], 0)
+            await self.invokeEventHandler(33, [], 0)
             self.gScriptState = typecast(typecast(_id, str), int)
-            await self.invokeEventHandler(31, [], 0)
+            await self.invokeEventHandler(32, [], 0)
             raise StateChangeException('dump_events')
         elif cond(req(61951, _num)):
             _lib_num: int = typecast(typecast(_id, str), int)
@@ -358,7 +358,7 @@ class Script(BaseLSLScript):
             _args: list = await self.JSONTypeParse(radd(_str, ((_str := ""))))
             _ret: list = []
             _ret_type: int = 0
-            if cond(rbitor(req(325, _lib_num), req(62, _lib_num))):
+            if cond(rbitor(req(336, _lib_num), req(62, _lib_num))):
                 await self.builtin_funcs.llResetScript()
             elif cond(req(12, _lib_num)):
                 await self.builtin_funcs.llAttachToAvatar(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
@@ -398,59 +398,59 @@ class Script(BaseLSLScript):
             elif cond(req(210, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llGiveMoney(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(249, _lib_num)):
+            elif cond(req(260, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llListen(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2Key(_args, 2), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 3)), list)
                 _ret_type = 1
-            elif cond(req(250, _lib_num)):
+            elif cond(req(261, _lib_num)):
                 await self.builtin_funcs.llListenControl(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
-            elif cond(req(251, _lib_num)):
+            elif cond(req(262, _lib_num)):
                 await self.builtin_funcs.llListenRemove(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
-            elif cond(req(255, _lib_num)):
+            elif cond(req(266, _lib_num)):
                 await self.builtin_funcs.llLookAt(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 2))
-            elif cond(req(264, _lib_num)):
+            elif cond(req(275, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llManageEstateAccess(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(266, _lib_num)):
+            elif cond(req(277, _lib_num)):
                 await self.builtin_funcs.llMessageLinked(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2String(_args, 2), await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 3))
-            elif cond(req(270, _lib_num)):
+            elif cond(req(281, _lib_num)):
                 await self.builtin_funcs.llMoveToTarget(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 1))
-            elif cond(req(299, _lib_num)):
+            elif cond(req(310, _lib_num)):
                 await self.builtin_funcs.llReleaseControls()
-            elif cond(req(315, _lib_num)):
-                await self.builtin_funcs.llRequestPermissions(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
-            elif cond(req(321, _lib_num)):
-                await self.builtin_funcs.llResetAnimationOverride(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
             elif cond(req(326, _lib_num)):
+                await self.builtin_funcs.llRequestPermissions(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
+            elif cond(req(332, _lib_num)):
+                await self.builtin_funcs.llResetAnimationOverride(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
+            elif cond(req(337, _lib_num)):
                 await self.builtin_funcs.llResetTime()
-            elif cond(req(327, _lib_num)):
+            elif cond(req(338, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llReturnObjectsByID(await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))), list)
                 _ret_type = 1
-            elif cond(req(328, _lib_num)):
+            elif cond(req(339, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llReturnObjectsByOwner(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(338, _lib_num)):
+            elif cond(req(349, _lib_num)):
                 await self.builtin_funcs.llRotLookAt(await self.builtin_funcs.llList2Rot(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 2))
-            elif cond(req(358, _lib_num)):
+            elif cond(req(369, _lib_num)):
                 await self.builtin_funcs.llSetAnimationOverride(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))
-            elif cond(req(362, _lib_num)):
+            elif cond(req(373, _lib_num)):
                 await self.builtin_funcs.llSetCameraParams(await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)))
-            elif cond(req(405, _lib_num)):
+            elif cond(req(416, _lib_num)):
                 await self.builtin_funcs.llSetTimerEvent(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0))
-            elif cond(req(418, _lib_num)):
+            elif cond(req(429, _lib_num)):
                 await self.builtin_funcs.llSleep(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0))
-            elif cond(req(422, _lib_num)):
+            elif cond(req(433, _lib_num)):
                 await self.builtin_funcs.llStartAnimation(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
-            elif cond(req(424, _lib_num)):
+            elif cond(req(435, _lib_num)):
                 await self.builtin_funcs.llStopAnimation(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
-            elif cond(req(426, _lib_num)):
+            elif cond(req(437, _lib_num)):
                 await self.builtin_funcs.llStopLookAt()
-            elif cond(req(427, _lib_num)):
+            elif cond(req(438, _lib_num)):
                 await self.builtin_funcs.llStopMoveToTarget()
-            elif cond(req(436, _lib_num)):
+            elif cond(req(447, _lib_num)):
                 await self.builtin_funcs.llTakeControls(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
-            elif cond(req(442, _lib_num)):
+            elif cond(req(453, _lib_num)):
                 await self.builtin_funcs.llTeleportAgent(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2Vector(_args, 2), await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 3))
-            elif cond(req(448, _lib_num)):
+            elif cond(req(459, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llTransferLindenDollars(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
             elif cond(bitnot(((_det_func_offset := await self.builtin_funcs.llListFindList(radd(50, typecast(47, list)), typecast(_lib_num, list)))))):
@@ -505,7 +505,7 @@ class Script(BaseLSLScript):
             await self.builtin_funcs.llMessageLinked((typecast(-4, int)), 61958, "", (typecast("", Key)))
             self.gInvokingHandler = 1
             await self.builtin_funcs.llMessageLinked((typecast(-4, int)), 61953, "", (typecast("0", Key)))
-            await self.invokeEventHandler(31, [], 0)
+            await self.invokeEventHandler(32, [], 0)
             self.gHeaderLines += 1
         elif cond(req(3, self.gLoadState)):
             self.gLoadState = 0
@@ -514,31 +514,31 @@ class Script(BaseLSLScript):
             await self.builtin_funcs.llMessageLinked((typecast(-4, int)), 61956, _data, typecast(typecast(self.gFetchingIP, str), Key))
 
     async def edefaulttouch_start(self, _num_detected: int) -> None:
-        await self.invokeEventHandler(36, typecast(_num_detected, list), _num_detected)
+        await self.invokeEventHandler(37, typecast(_num_detected, list), _num_detected)
 
     async def edefaulttouch(self, _num_detected: int) -> None:
-        await self.invokeEventHandler(34, typecast(_num_detected, list), _num_detected)
-
-    async def edefaulttouch_end(self, _num_detected: int) -> None:
         await self.invokeEventHandler(35, typecast(_num_detected, list), _num_detected)
 
+    async def edefaulttouch_end(self, _num_detected: int) -> None:
+        await self.invokeEventHandler(36, typecast(_num_detected, list), _num_detected)
+
     async def edefaultlisten(self, _channel: int, _name: str, _id: Key, _msg: str) -> None:
-        await self.invokeEventHandler(18, [_channel, _name, _id, radd(_msg, ((_msg := "")))], 0)
+        await self.invokeEventHandler(19, [_channel, _name, _id, radd(_msg, ((_msg := "")))], 0)
 
     async def edefaulton_rez(self, _start_param: int) -> None:
-        await self.invokeEventHandler(26, typecast(_start_param, list), 0)
+        await self.invokeEventHandler(27, typecast(_start_param, list), 0)
 
     async def edefaulttimer(self) -> None:
         _i: int = 0
         _len: int = rneq([], self.gQueuedEvents)
-        _expected_eh: int = rbitor(33, rmul(65536, self.gScriptState))
+        _expected_eh: int = rbitor(34, rmul(65536, self.gScriptState))
         while True == True:
             if not cond(rless(_len, _i)):
                 break
             if cond(req(_expected_eh, await self.builtin_funcs.llList2Integer(self.gQueuedEvents, _i))):
                 return
             _i = radd(_i, 4)
-        await self.invokeEventHandler(33, [], 0)
+        await self.invokeEventHandler(34, [], 0)
 
     async def edefaulthttp_response(self, _request_id: Key, _status: int, _metadata: list, _body: str) -> None:
         await self.invokeEventHandler(13, [_request_id, _status, await self.JSONTypeDump(radd(_metadata, ((_metadata := [])))), radd(_body, ((_body := "")))], 0)
@@ -547,7 +547,7 @@ class Script(BaseLSLScript):
         await self.invokeEventHandler(12, [_id, _method, radd(_body, ((_body := "")))], 0)
 
     async def edefaultrun_time_permissions(self, _perm: int) -> None:
-        await self.invokeEventHandler(29, typecast(_perm, list), 0)
+        await self.invokeEventHandler(30, typecast(_perm, list), 0)
 
     async def edump_eventsstate_entry(self) -> None:
         raise StateChangeException('default')

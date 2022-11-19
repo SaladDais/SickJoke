@@ -706,6 +706,7 @@ class Script(BaseLSLScript):
             await self.checkCodeFetchNeeded()
         if cond(self.gCodeFetchNeeded):
             await self.builtin_funcs.llMessageLinked((typecast(-4, int)), 61955, "", typecast(typecast(radd(self.gIP, self.gIPB), str), Key))
+            self.gCode = []
 
     async def handleCodeReload(self, _new_ipb: int) -> None:
         self.gCodeSize = rneq([], self.gCode)

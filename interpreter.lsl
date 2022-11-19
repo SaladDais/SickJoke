@@ -43,7 +43,7 @@ string gBenchmarks = "{}";
 #   define END_OP_BENCHMARK(_name) (0)
 #endif
 
-#ifdef TRACING
+#ifdef INTERPRETER_TRACING
 #   define TRACE(_str) llSetText((_str) + "\nIP: " + (string)(gIP + gIPB) + "\n" + "Free Mem: " + (string)llGetFreeMemory() + "\n" + "Stack: " + (string)llGetListLength(gStack), <1,1,1>, 1);
 #else
 #   define TRACE(_str) (0)
@@ -1001,6 +1001,7 @@ default {
         
         if (num == IPCTYPE_REQUEST_CODE_REPLY) {
             TRACE("handling code fetch reply");
+            gCode = [];
             gCode = llJson2List(CLEARABLE_STR(str));
 
             // recalculate the IP relative to the new code section

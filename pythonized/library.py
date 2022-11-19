@@ -677,501 +677,533 @@ class Script(BaseLSLScript):
             elif cond(req(232, _lib_num)):
                 await self.builtin_funcs.llLinkSitTarget(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Vector(_args, 1), await self.builtin_funcs.llList2Rot(radd(_args, ((_args := []))), 2))
             elif cond(req(233, _lib_num)):
-                _ret = typecast(await self.builtin_funcs.llList2CSV(await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))), list)
+                _ret = typecast(await self.builtin_funcs.llLinksetDataAvailable(), list)
                 _ret_type = 1
             elif cond(req(234, _lib_num)):
-                _ret = typecast(await self.builtin_funcs.llList2Float(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
+                _ret = typecast(await self.builtin_funcs.llLinksetDataCountKeys(), list)
                 _ret_type = 1
             elif cond(req(235, _lib_num)):
-                _ret = typecast(await self.builtin_funcs.llList2Integer(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
+                _ret = typecast(await self.builtin_funcs.llLinksetDataDelete(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
             elif cond(req(236, _lib_num)):
-                _ret = typecast(await self.builtin_funcs.llList2Json(await self.builtin_funcs.llList2String(_args, 0), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))), list)
+                _ret = typecast(await self.builtin_funcs.llLinksetDataDeleteProtected(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
             elif cond(req(237, _lib_num)):
-                _ret = typecast(await self.builtin_funcs.llList2Key(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
-                _ret_type = 1
+                _ret = await self.builtin_funcs.llLinksetDataFindKeys(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
+                _ret_type = 2
             elif cond(req(238, _lib_num)):
-                _ret = await self.builtin_funcs.llList2List(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
+                _ret = await self.builtin_funcs.llLinksetDataListKeys(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
                 _ret_type = 2
             elif cond(req(239, _lib_num)):
-                _ret = await self.builtin_funcs.llList2ListStrided(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 3))
-                _ret_type = 2
+                _ret = typecast(await self.builtin_funcs.llLinksetDataRead(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)), list)
+                _ret_type = 1
             elif cond(req(240, _lib_num)):
-                _ret = typecast(await self.builtin_funcs.llList2Rot(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
+                _ret = typecast(await self.builtin_funcs.llLinksetDataReadProtected(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
             elif cond(req(241, _lib_num)):
-                _ret = typecast(await self.builtin_funcs.llList2String(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
-                _ret_type = 1
+                await self.builtin_funcs.llLinksetDataReset()
             elif cond(req(242, _lib_num)):
-                _ret = typecast(await self.builtin_funcs.llList2Vector(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
+                _ret = typecast(await self.builtin_funcs.llLinksetDataWrite(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
             elif cond(req(243, _lib_num)):
-                _ret = typecast(await self.builtin_funcs.llListFindList(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))), list)
+                _ret = typecast(await self.builtin_funcs.llLinksetDataWriteProtected(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 2)), list)
                 _ret_type = 1
             elif cond(req(244, _lib_num)):
-                _ret = await self.builtin_funcs.llListInsertList(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 1)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
-                _ret_type = 2
+                _ret = typecast(await self.builtin_funcs.llList2CSV(await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))), list)
+                _ret_type = 1
             elif cond(req(245, _lib_num)):
-                _ret = await self.builtin_funcs.llListRandomize(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
-                _ret_type = 2
+                _ret = typecast(await self.builtin_funcs.llList2Float(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
+                _ret_type = 1
             elif cond(req(246, _lib_num)):
-                _ret = await self.builtin_funcs.llListReplaceList(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 1)), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 3))
-                _ret_type = 2
+                _ret = typecast(await self.builtin_funcs.llList2Integer(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
+                _ret_type = 1
             elif cond(req(247, _lib_num)):
-                _ret = await self.builtin_funcs.llListSort(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
-                _ret_type = 2
+                _ret = typecast(await self.builtin_funcs.llList2Json(await self.builtin_funcs.llList2String(_args, 0), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))), list)
+                _ret_type = 1
             elif cond(req(248, _lib_num)):
-                _ret = typecast(await self.builtin_funcs.llListStatistics(await self.builtin_funcs.llList2Integer(_args, 0), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))), list)
+                _ret = typecast(await self.builtin_funcs.llList2Key(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
+                _ret_type = 1
+            elif cond(req(249, _lib_num)):
+                _ret = await self.builtin_funcs.llList2List(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
+                _ret_type = 2
+            elif cond(req(250, _lib_num)):
+                _ret = await self.builtin_funcs.llList2ListStrided(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 3))
+                _ret_type = 2
+            elif cond(req(251, _lib_num)):
+                _ret = typecast(await self.builtin_funcs.llList2Rot(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
             elif cond(req(252, _lib_num)):
-                await self.builtin_funcs.llLoadURL(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 2))
+                _ret = typecast(await self.builtin_funcs.llList2String(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
+                _ret_type = 1
             elif cond(req(253, _lib_num)):
-                _ret = typecast(await self.builtin_funcs.llLog(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0)), list)
+                _ret = typecast(await self.builtin_funcs.llList2Vector(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
             elif cond(req(254, _lib_num)):
+                _ret = typecast(await self.builtin_funcs.llListFindList(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))), list)
+                _ret_type = 1
+            elif cond(req(255, _lib_num)):
+                _ret = await self.builtin_funcs.llListInsertList(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 1)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
+                _ret_type = 2
+            elif cond(req(256, _lib_num)):
+                _ret = await self.builtin_funcs.llListRandomize(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
+                _ret_type = 2
+            elif cond(req(257, _lib_num)):
+                _ret = await self.builtin_funcs.llListReplaceList(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 1)), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 3))
+                _ret_type = 2
+            elif cond(req(258, _lib_num)):
+                _ret = await self.builtin_funcs.llListSort(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
+                _ret_type = 2
+            elif cond(req(259, _lib_num)):
+                _ret = typecast(await self.builtin_funcs.llListStatistics(await self.builtin_funcs.llList2Integer(_args, 0), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))), list)
+                _ret_type = 1
+            elif cond(req(263, _lib_num)):
+                await self.builtin_funcs.llLoadURL(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 2))
+            elif cond(req(264, _lib_num)):
+                _ret = typecast(await self.builtin_funcs.llLog(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0)), list)
+                _ret_type = 1
+            elif cond(req(265, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llLog10(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(256, _lib_num)):
+            elif cond(req(267, _lib_num)):
                 await self.builtin_funcs.llLoopSound(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 1))
-            elif cond(req(257, _lib_num)):
+            elif cond(req(268, _lib_num)):
                 await self.builtin_funcs.llLoopSoundMaster(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 1))
-            elif cond(req(258, _lib_num)):
+            elif cond(req(269, _lib_num)):
                 await self.builtin_funcs.llLoopSoundSlave(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 1))
-            elif cond(req(259, _lib_num)):
+            elif cond(req(270, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llMD5String(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(260, _lib_num)):
+            elif cond(req(271, _lib_num)):
                 await self.builtin_funcs.llMakeExplosion(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.builtin_funcs.llList2Float(_args, 2), await self.builtin_funcs.llList2Float(_args, 3), await self.builtin_funcs.llList2Float(_args, 4), await self.builtin_funcs.llList2String(_args, 5), await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 6))
-            elif cond(req(261, _lib_num)):
+            elif cond(req(272, _lib_num)):
                 await self.builtin_funcs.llMakeFire(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.builtin_funcs.llList2Float(_args, 2), await self.builtin_funcs.llList2Float(_args, 3), await self.builtin_funcs.llList2Float(_args, 4), await self.builtin_funcs.llList2String(_args, 5), await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 6))
-            elif cond(req(262, _lib_num)):
+            elif cond(req(273, _lib_num)):
                 await self.builtin_funcs.llMakeFountain(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.builtin_funcs.llList2Float(_args, 2), await self.builtin_funcs.llList2Float(_args, 3), await self.builtin_funcs.llList2Float(_args, 4), await self.builtin_funcs.llList2Integer(_args, 5), await self.builtin_funcs.llList2String(_args, 6), await self.builtin_funcs.llList2Vector(_args, 7), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 8))
-            elif cond(req(263, _lib_num)):
+            elif cond(req(274, _lib_num)):
                 await self.builtin_funcs.llMakeSmoke(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.builtin_funcs.llList2Float(_args, 2), await self.builtin_funcs.llList2Float(_args, 3), await self.builtin_funcs.llList2Float(_args, 4), await self.builtin_funcs.llList2String(_args, 5), await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 6))
-            elif cond(req(265, _lib_num)):
+            elif cond(req(276, _lib_num)):
                 await self.builtin_funcs.llMapDestination(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Vector(_args, 1), await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 2))
-            elif cond(req(267, _lib_num)):
+            elif cond(req(278, _lib_num)):
                 await self.builtin_funcs.llMinEventDelay(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0))
-            elif cond(req(268, _lib_num)):
+            elif cond(req(279, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llModPow(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2)), list)
                 _ret_type = 1
-            elif cond(req(269, _lib_num)):
+            elif cond(req(280, _lib_num)):
                 await self.builtin_funcs.llModifyLand(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
-            elif cond(req(271, _lib_num)):
+            elif cond(req(282, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llName2Key(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(272, _lib_num)):
+            elif cond(req(283, _lib_num)):
                 await self.builtin_funcs.llNavigateTo(await self.builtin_funcs.llList2Vector(_args, 0), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1)))
-            elif cond(req(273, _lib_num)):
+            elif cond(req(284, _lib_num)):
                 await self.builtin_funcs.llOffsetTexture(await self.builtin_funcs.llList2Float(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
-            elif cond(req(274, _lib_num)):
+            elif cond(req(285, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llOpenFloater(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 2))), list)
                 _ret_type = 1
-            elif cond(req(275, _lib_num)):
+            elif cond(req(286, _lib_num)):
                 await self.builtin_funcs.llOpenRemoteDataChannel()
-            elif cond(req(276, _lib_num)):
+            elif cond(req(287, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llOrd(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(277, _lib_num)):
+            elif cond(req(288, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llOverMyLand(await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(278, _lib_num)):
+            elif cond(req(289, _lib_num)):
                 await self.builtin_funcs.llOwnerSay(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
-            elif cond(req(279, _lib_num)):
+            elif cond(req(290, _lib_num)):
                 await self.builtin_funcs.llParcelMediaCommandList(await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)))
-            elif cond(req(280, _lib_num)):
+            elif cond(req(291, _lib_num)):
                 _ret = await self.builtin_funcs.llParcelMediaQuery(await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)))
                 _ret_type = 2
-            elif cond(req(281, _lib_num)):
+            elif cond(req(292, _lib_num)):
                 _ret = await self.builtin_funcs.llParseString2List(await self.builtin_funcs.llList2String(_args, 0), await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 1)), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 2)))
                 _ret_type = 2
-            elif cond(req(282, _lib_num)):
+            elif cond(req(293, _lib_num)):
                 _ret = await self.builtin_funcs.llParseStringKeepNulls(await self.builtin_funcs.llList2String(_args, 0), await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 1)), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 2)))
                 _ret_type = 2
-            elif cond(req(283, _lib_num)):
+            elif cond(req(294, _lib_num)):
                 await self.builtin_funcs.llParticleSystem(await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)))
-            elif cond(req(284, _lib_num)):
+            elif cond(req(295, _lib_num)):
                 await self.builtin_funcs.llPassCollisions(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
-            elif cond(req(285, _lib_num)):
+            elif cond(req(296, _lib_num)):
                 await self.builtin_funcs.llPassTouches(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
-            elif cond(req(286, _lib_num)):
+            elif cond(req(297, _lib_num)):
                 await self.builtin_funcs.llPatrolPoints(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1)))
-            elif cond(req(287, _lib_num)):
+            elif cond(req(298, _lib_num)):
                 await self.builtin_funcs.llPlaySound(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 1))
-            elif cond(req(288, _lib_num)):
+            elif cond(req(299, _lib_num)):
                 await self.builtin_funcs.llPlaySoundSlave(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 1))
-            elif cond(req(289, _lib_num)):
+            elif cond(req(300, _lib_num)):
                 await self.builtin_funcs.llPointAt(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0))
-            elif cond(req(290, _lib_num)):
+            elif cond(req(301, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llPow(await self.builtin_funcs.llList2Float(_args, 0), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(291, _lib_num)):
+            elif cond(req(302, _lib_num)):
                 await self.builtin_funcs.llPreloadSound(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
-            elif cond(req(292, _lib_num)):
+            elif cond(req(303, _lib_num)):
                 await self.builtin_funcs.llPursue(await self.builtin_funcs.llList2Key(_args, 0), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1)))
-            elif cond(req(293, _lib_num)):
+            elif cond(req(304, _lib_num)):
                 await self.builtin_funcs.llPushObject(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Vector(_args, 1), await self.builtin_funcs.llList2Vector(_args, 2), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 3))
-            elif cond(req(294, _lib_num)):
+            elif cond(req(305, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llReadKeyValue(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(295, _lib_num)):
-                await self.builtin_funcs.llRefreshPrimURL()
-            elif cond(req(296, _lib_num)):
-                await self.builtin_funcs.llRegionSay(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))
-            elif cond(req(297, _lib_num)):
-                await self.builtin_funcs.llRegionSayTo(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 2))
-            elif cond(req(298, _lib_num)):
-                await self.builtin_funcs.llReleaseCamera(await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 0))
-            elif cond(req(300, _lib_num)):
-                await self.builtin_funcs.llReleaseURL(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
-            elif cond(req(301, _lib_num)):
-                await self.builtin_funcs.llRemoteDataReply(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Key(_args, 1), await self.builtin_funcs.llList2String(_args, 2), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 3))
-            elif cond(req(302, _lib_num)):
-                await self.builtin_funcs.llRemoteDataSetRegion()
-            elif cond(req(303, _lib_num)):
-                await self.builtin_funcs.llRemoteLoadScript(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 3))
-            elif cond(req(304, _lib_num)):
-                await self.builtin_funcs.llRemoteLoadScriptPin(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Integer(_args, 3), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 4))
-            elif cond(req(305, _lib_num)):
-                await self.builtin_funcs.llRemoveFromLandBanList(await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 0))
             elif cond(req(306, _lib_num)):
-                await self.builtin_funcs.llRemoveFromLandPassList(await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 0))
+                await self.builtin_funcs.llRefreshPrimURL()
             elif cond(req(307, _lib_num)):
-                await self.builtin_funcs.llRemoveInventory(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
+                await self.builtin_funcs.llRegionSay(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))
             elif cond(req(308, _lib_num)):
-                await self.builtin_funcs.llRemoveVehicleFlags(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
+                await self.builtin_funcs.llRegionSayTo(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 2))
             elif cond(req(309, _lib_num)):
+                await self.builtin_funcs.llReleaseCamera(await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 0))
+            elif cond(req(311, _lib_num)):
+                await self.builtin_funcs.llReleaseURL(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
+            elif cond(req(312, _lib_num)):
+                await self.builtin_funcs.llRemoteDataReply(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Key(_args, 1), await self.builtin_funcs.llList2String(_args, 2), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 3))
+            elif cond(req(313, _lib_num)):
+                await self.builtin_funcs.llRemoteDataSetRegion()
+            elif cond(req(314, _lib_num)):
+                await self.builtin_funcs.llRemoteLoadScript(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 3))
+            elif cond(req(315, _lib_num)):
+                await self.builtin_funcs.llRemoteLoadScriptPin(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Integer(_args, 3), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 4))
+            elif cond(req(316, _lib_num)):
+                await self.builtin_funcs.llRemoveFromLandBanList(await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 0))
+            elif cond(req(317, _lib_num)):
+                await self.builtin_funcs.llRemoveFromLandPassList(await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 0))
+            elif cond(req(318, _lib_num)):
+                await self.builtin_funcs.llRemoveInventory(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
+            elif cond(req(319, _lib_num)):
+                await self.builtin_funcs.llRemoveVehicleFlags(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
+            elif cond(req(320, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llReplaceAgentEnvironment(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 2)), list)
                 _ret_type = 1
-            elif cond(req(310, _lib_num)):
+            elif cond(req(321, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llReplaceEnvironment(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Integer(_args, 3), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 4)), list)
                 _ret_type = 1
-            elif cond(req(311, _lib_num)):
+            elif cond(req(322, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRequestAgentData(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(312, _lib_num)):
+            elif cond(req(323, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRequestDisplayName(await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(313, _lib_num)):
+            elif cond(req(324, _lib_num)):
                 await self.builtin_funcs.llRequestExperiencePermissions(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))
-            elif cond(req(314, _lib_num)):
+            elif cond(req(325, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRequestInventoryData(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(316, _lib_num)):
+            elif cond(req(327, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRequestSecureURL(), list)
                 _ret_type = 1
-            elif cond(req(317, _lib_num)):
+            elif cond(req(328, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRequestSimulatorData(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(318, _lib_num)):
+            elif cond(req(329, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRequestURL(), list)
                 _ret_type = 1
-            elif cond(req(319, _lib_num)):
+            elif cond(req(330, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRequestUserKey(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(320, _lib_num)):
+            elif cond(req(331, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRequestUsername(await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(322, _lib_num)):
+            elif cond(req(333, _lib_num)):
                 await self.builtin_funcs.llResetLandBanList()
-            elif cond(req(323, _lib_num)):
+            elif cond(req(334, _lib_num)):
                 await self.builtin_funcs.llResetLandPassList()
-            elif cond(req(324, _lib_num)):
+            elif cond(req(335, _lib_num)):
                 await self.builtin_funcs.llResetOtherScript(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
-            elif cond(req(329, _lib_num)):
+            elif cond(req(340, _lib_num)):
                 await self.builtin_funcs.llRezAtRoot(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Vector(_args, 1), await self.builtin_funcs.llList2Vector(_args, 2), await self.builtin_funcs.llList2Rot(_args, 3), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 4))
-            elif cond(req(330, _lib_num)):
+            elif cond(req(341, _lib_num)):
                 await self.builtin_funcs.llRezObject(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Vector(_args, 1), await self.builtin_funcs.llList2Vector(_args, 2), await self.builtin_funcs.llList2Rot(_args, 3), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 4))
-            elif cond(req(331, _lib_num)):
+            elif cond(req(342, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRot2Angle(await self.builtin_funcs.llList2Rot(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(332, _lib_num)):
+            elif cond(req(343, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRot2Axis(await self.builtin_funcs.llList2Rot(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(333, _lib_num)):
+            elif cond(req(344, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRot2Euler(await self.builtin_funcs.llList2Rot(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(334, _lib_num)):
+            elif cond(req(345, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRot2Fwd(await self.builtin_funcs.llList2Rot(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(335, _lib_num)):
+            elif cond(req(346, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRot2Left(await self.builtin_funcs.llList2Rot(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(336, _lib_num)):
+            elif cond(req(347, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRot2Up(await self.builtin_funcs.llList2Rot(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(337, _lib_num)):
+            elif cond(req(348, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRotBetween(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(339, _lib_num)):
+            elif cond(req(350, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRotTarget(await self.builtin_funcs.llList2Rot(_args, 0), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(340, _lib_num)):
+            elif cond(req(351, _lib_num)):
                 await self.builtin_funcs.llRotTargetRemove(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
-            elif cond(req(341, _lib_num)):
+            elif cond(req(352, _lib_num)):
                 await self.builtin_funcs.llRotateTexture(await self.builtin_funcs.llList2Float(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
-            elif cond(req(342, _lib_num)):
+            elif cond(req(353, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llRound(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(343, _lib_num)):
+            elif cond(req(354, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llSHA1String(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(344, _lib_num)):
+            elif cond(req(355, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llSHA256String(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(345, _lib_num)):
+            elif cond(req(356, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llSameGroup(await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(346, _lib_num)):
+            elif cond(req(357, _lib_num)):
                 await self.builtin_funcs.llSay(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))
-            elif cond(req(347, _lib_num)):
+            elif cond(req(358, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llScaleByFactor(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(348, _lib_num)):
+            elif cond(req(359, _lib_num)):
                 await self.builtin_funcs.llScaleTexture(await self.builtin_funcs.llList2Float(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
-            elif cond(req(349, _lib_num)):
+            elif cond(req(360, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llScriptDanger(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(350, _lib_num)):
+            elif cond(req(361, _lib_num)):
                 await self.builtin_funcs.llScriptProfiler(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
-            elif cond(req(351, _lib_num)):
+            elif cond(req(362, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llSendRemoteData(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 3)), list)
                 _ret_type = 1
-            elif cond(req(352, _lib_num)):
+            elif cond(req(363, _lib_num)):
                 await self.builtin_funcs.llSensor(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Key(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Float(_args, 3), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 4))
-            elif cond(req(353, _lib_num)):
+            elif cond(req(364, _lib_num)):
                 await self.builtin_funcs.llSensorRemove()
-            elif cond(req(354, _lib_num)):
+            elif cond(req(365, _lib_num)):
                 await self.builtin_funcs.llSensorRepeat(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Key(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Float(_args, 3), await self.builtin_funcs.llList2Float(_args, 4), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 5))
-            elif cond(req(355, _lib_num)):
+            elif cond(req(366, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llSetAgentEnvironment(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 2))), list)
                 _ret_type = 1
-            elif cond(req(356, _lib_num)):
-                await self.builtin_funcs.llSetAlpha(await self.builtin_funcs.llList2Float(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
-            elif cond(req(357, _lib_num)):
-                await self.builtin_funcs.llSetAngularVelocity(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
-            elif cond(req(359, _lib_num)):
-                await self.builtin_funcs.llSetBuoyancy(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0))
-            elif cond(req(360, _lib_num)):
-                await self.builtin_funcs.llSetCameraAtOffset(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0))
-            elif cond(req(361, _lib_num)):
-                await self.builtin_funcs.llSetCameraEyeOffset(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0))
-            elif cond(req(363, _lib_num)):
-                await self.builtin_funcs.llSetClickAction(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
-            elif cond(req(364, _lib_num)):
-                await self.builtin_funcs.llSetColor(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
-            elif cond(req(365, _lib_num)):
-                await self.builtin_funcs.llSetContentType(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
-            elif cond(req(366, _lib_num)):
-                await self.builtin_funcs.llSetDamage(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0))
             elif cond(req(367, _lib_num)):
+                await self.builtin_funcs.llSetAlpha(await self.builtin_funcs.llList2Float(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
+            elif cond(req(368, _lib_num)):
+                await self.builtin_funcs.llSetAngularVelocity(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
+            elif cond(req(370, _lib_num)):
+                await self.builtin_funcs.llSetBuoyancy(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0))
+            elif cond(req(371, _lib_num)):
+                await self.builtin_funcs.llSetCameraAtOffset(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0))
+            elif cond(req(372, _lib_num)):
+                await self.builtin_funcs.llSetCameraEyeOffset(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0))
+            elif cond(req(374, _lib_num)):
+                await self.builtin_funcs.llSetClickAction(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
+            elif cond(req(375, _lib_num)):
+                await self.builtin_funcs.llSetColor(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
+            elif cond(req(376, _lib_num)):
+                await self.builtin_funcs.llSetContentType(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
+            elif cond(req(377, _lib_num)):
+                await self.builtin_funcs.llSetDamage(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0))
+            elif cond(req(378, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llSetEnvironment(await self.builtin_funcs.llList2Vector(_args, 0), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))), list)
                 _ret_type = 1
-            elif cond(req(368, _lib_num)):
+            elif cond(req(379, _lib_num)):
                 await self.builtin_funcs.llSetForce(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
-            elif cond(req(369, _lib_num)):
+            elif cond(req(380, _lib_num)):
                 await self.builtin_funcs.llSetForceAndTorque(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Vector(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
-            elif cond(req(370, _lib_num)):
+            elif cond(req(381, _lib_num)):
                 await self.builtin_funcs.llSetHoverHeight(await self.builtin_funcs.llList2Float(_args, 0), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 2))
-            elif cond(req(371, _lib_num)):
+            elif cond(req(382, _lib_num)):
                 await self.builtin_funcs.llSetInventoryPermMask(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
-            elif cond(req(372, _lib_num)):
+            elif cond(req(383, _lib_num)):
                 await self.builtin_funcs.llSetKeyframedMotion(await self.JSONTypeParse(await self.builtin_funcs.llList2String(_args, 0)), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1)))
-            elif cond(req(373, _lib_num)):
+            elif cond(req(384, _lib_num)):
                 await self.builtin_funcs.llSetLinkAlpha(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
-            elif cond(req(374, _lib_num)):
+            elif cond(req(385, _lib_num)):
                 await self.builtin_funcs.llSetLinkCamera(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Vector(_args, 1), await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 2))
-            elif cond(req(375, _lib_num)):
+            elif cond(req(386, _lib_num)):
                 await self.builtin_funcs.llSetLinkColor(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Vector(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
-            elif cond(req(376, _lib_num)):
+            elif cond(req(387, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llSetLinkMedia(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Integer(_args, 1), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 2))), list)
                 _ret_type = 1
-            elif cond(req(377, _lib_num)):
+            elif cond(req(388, _lib_num)):
                 await self.builtin_funcs.llSetLinkPrimitiveParams(await self.builtin_funcs.llList2Integer(_args, 0), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1)))
-            elif cond(req(378, _lib_num)):
+            elif cond(req(389, _lib_num)):
                 await self.builtin_funcs.llSetLinkPrimitiveParamsFast(await self.builtin_funcs.llList2Integer(_args, 0), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1)))
-            elif cond(req(379, _lib_num)):
+            elif cond(req(390, _lib_num)):
                 await self.builtin_funcs.llSetLinkTexture(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
-            elif cond(req(380, _lib_num)):
+            elif cond(req(391, _lib_num)):
                 await self.builtin_funcs.llSetLinkTextureAnim(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Integer(_args, 3), await self.builtin_funcs.llList2Integer(_args, 4), await self.builtin_funcs.llList2Float(_args, 5), await self.builtin_funcs.llList2Float(_args, 6), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 7))
-            elif cond(req(381, _lib_num)):
+            elif cond(req(392, _lib_num)):
                 await self.builtin_funcs.llSetLocalRot(await self.builtin_funcs.llList2Rot(radd(_args, ((_args := []))), 0))
-            elif cond(req(382, _lib_num)):
+            elif cond(req(393, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llSetMemoryLimit(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(383, _lib_num)):
+            elif cond(req(394, _lib_num)):
                 await self.builtin_funcs.llSetObjectDesc(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
-            elif cond(req(384, _lib_num)):
+            elif cond(req(395, _lib_num)):
                 await self.builtin_funcs.llSetObjectName(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
-            elif cond(req(385, _lib_num)):
+            elif cond(req(396, _lib_num)):
                 await self.builtin_funcs.llSetObjectPermMask(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
-            elif cond(req(386, _lib_num)):
+            elif cond(req(397, _lib_num)):
                 await self.builtin_funcs.llSetParcelMusicURL(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
-            elif cond(req(387, _lib_num)):
+            elif cond(req(398, _lib_num)):
                 await self.builtin_funcs.llSetPayPrice(await self.builtin_funcs.llList2Integer(_args, 0), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1)))
-            elif cond(req(388, _lib_num)):
+            elif cond(req(399, _lib_num)):
                 await self.builtin_funcs.llSetPhysicsMaterial(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.builtin_funcs.llList2Float(_args, 2), await self.builtin_funcs.llList2Float(_args, 3), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 4))
-            elif cond(req(389, _lib_num)):
+            elif cond(req(400, _lib_num)):
                 await self.builtin_funcs.llSetPos(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0))
-            elif cond(req(390, _lib_num)):
+            elif cond(req(401, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llSetPrimMediaParams(await self.builtin_funcs.llList2Integer(_args, 0), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))), list)
                 _ret_type = 1
-            elif cond(req(391, _lib_num)):
+            elif cond(req(402, _lib_num)):
                 await self.builtin_funcs.llSetPrimURL(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
-            elif cond(req(392, _lib_num)):
+            elif cond(req(403, _lib_num)):
                 await self.builtin_funcs.llSetPrimitiveParams(await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)))
-            elif cond(req(393, _lib_num)):
+            elif cond(req(404, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llSetRegionPos(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(394, _lib_num)):
+            elif cond(req(405, _lib_num)):
                 await self.builtin_funcs.llSetRemoteScriptAccessPin(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
-            elif cond(req(395, _lib_num)):
-                await self.builtin_funcs.llSetRot(await self.builtin_funcs.llList2Rot(radd(_args, ((_args := []))), 0))
-            elif cond(req(396, _lib_num)):
-                await self.builtin_funcs.llSetScale(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0))
-            elif cond(req(397, _lib_num)):
-                await self.builtin_funcs.llSetScriptState(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
-            elif cond(req(398, _lib_num)):
-                await self.builtin_funcs.llSetSitText(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
-            elif cond(req(399, _lib_num)):
-                await self.builtin_funcs.llSetSoundQueueing(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
-            elif cond(req(400, _lib_num)):
-                await self.builtin_funcs.llSetSoundRadius(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0))
-            elif cond(req(401, _lib_num)):
-                await self.builtin_funcs.llSetStatus(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
-            elif cond(req(402, _lib_num)):
-                await self.builtin_funcs.llSetText(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Vector(_args, 1), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 2))
-            elif cond(req(403, _lib_num)):
-                await self.builtin_funcs.llSetTexture(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
-            elif cond(req(404, _lib_num)):
-                await self.builtin_funcs.llSetTextureAnim(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Integer(_args, 3), await self.builtin_funcs.llList2Float(_args, 4), await self.builtin_funcs.llList2Float(_args, 5), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 6))
             elif cond(req(406, _lib_num)):
-                await self.builtin_funcs.llSetTorque(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
+                await self.builtin_funcs.llSetRot(await self.builtin_funcs.llList2Rot(radd(_args, ((_args := []))), 0))
             elif cond(req(407, _lib_num)):
-                await self.builtin_funcs.llSetTouchText(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
+                await self.builtin_funcs.llSetScale(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0))
             elif cond(req(408, _lib_num)):
-                await self.builtin_funcs.llSetVehicleFlags(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
+                await self.builtin_funcs.llSetScriptState(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
             elif cond(req(409, _lib_num)):
-                await self.builtin_funcs.llSetVehicleFloatParam(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 1))
+                await self.builtin_funcs.llSetSitText(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
             elif cond(req(410, _lib_num)):
-                await self.builtin_funcs.llSetVehicleRotationParam(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Rot(radd(_args, ((_args := []))), 1))
+                await self.builtin_funcs.llSetSoundQueueing(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
             elif cond(req(411, _lib_num)):
-                await self.builtin_funcs.llSetVehicleType(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
+                await self.builtin_funcs.llSetSoundRadius(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0))
             elif cond(req(412, _lib_num)):
-                await self.builtin_funcs.llSetVehicleVectorParam(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 1))
+                await self.builtin_funcs.llSetStatus(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
             elif cond(req(413, _lib_num)):
-                await self.builtin_funcs.llSetVelocity(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
+                await self.builtin_funcs.llSetText(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Vector(_args, 1), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 2))
             elif cond(req(414, _lib_num)):
-                await self.builtin_funcs.llShout(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))
+                await self.builtin_funcs.llSetTexture(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
             elif cond(req(415, _lib_num)):
+                await self.builtin_funcs.llSetTextureAnim(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Integer(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Integer(_args, 3), await self.builtin_funcs.llList2Float(_args, 4), await self.builtin_funcs.llList2Float(_args, 5), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 6))
+            elif cond(req(417, _lib_num)):
+                await self.builtin_funcs.llSetTorque(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
+            elif cond(req(418, _lib_num)):
+                await self.builtin_funcs.llSetTouchText(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
+            elif cond(req(419, _lib_num)):
+                await self.builtin_funcs.llSetVehicleFlags(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
+            elif cond(req(420, _lib_num)):
+                await self.builtin_funcs.llSetVehicleFloatParam(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 1))
+            elif cond(req(421, _lib_num)):
+                await self.builtin_funcs.llSetVehicleRotationParam(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Rot(radd(_args, ((_args := []))), 1))
+            elif cond(req(422, _lib_num)):
+                await self.builtin_funcs.llSetVehicleType(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
+            elif cond(req(423, _lib_num)):
+                await self.builtin_funcs.llSetVehicleVectorParam(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 1))
+            elif cond(req(424, _lib_num)):
+                await self.builtin_funcs.llSetVelocity(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1))
+            elif cond(req(425, _lib_num)):
+                await self.builtin_funcs.llShout(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))
+            elif cond(req(426, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llSin(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(416, _lib_num)):
+            elif cond(req(427, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llSitOnLink(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(417, _lib_num)):
+            elif cond(req(428, _lib_num)):
                 await self.builtin_funcs.llSitTarget(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Rot(radd(_args, ((_args := []))), 1))
-            elif cond(req(419, _lib_num)):
+            elif cond(req(430, _lib_num)):
                 await self.builtin_funcs.llSound(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 3))
-            elif cond(req(420, _lib_num)):
+            elif cond(req(431, _lib_num)):
                 await self.builtin_funcs.llSoundPreload(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
-            elif cond(req(421, _lib_num)):
+            elif cond(req(432, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llSqrt(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(423, _lib_num)):
+            elif cond(req(434, _lib_num)):
                 await self.builtin_funcs.llStartObjectAnimation(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
-            elif cond(req(425, _lib_num)):
+            elif cond(req(436, _lib_num)):
                 await self.builtin_funcs.llStopHover()
-            elif cond(req(428, _lib_num)):
+            elif cond(req(439, _lib_num)):
                 await self.builtin_funcs.llStopObjectAnimation(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0))
-            elif cond(req(429, _lib_num)):
+            elif cond(req(440, _lib_num)):
                 await self.builtin_funcs.llStopPointAt()
-            elif cond(req(430, _lib_num)):
+            elif cond(req(441, _lib_num)):
                 await self.builtin_funcs.llStopSound()
-            elif cond(req(431, _lib_num)):
+            elif cond(req(442, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llStringLength(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(432, _lib_num)):
+            elif cond(req(443, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llStringToBase64(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(433, _lib_num)):
+            elif cond(req(444, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llStringTrim(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(434, _lib_num)):
+            elif cond(req(445, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llSubStringIndex(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(435, _lib_num)):
+            elif cond(req(446, _lib_num)):
                 await self.builtin_funcs.llTakeCamera(await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 0))
-            elif cond(req(437, _lib_num)):
+            elif cond(req(448, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llTan(await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(438, _lib_num)):
+            elif cond(req(449, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llTarget(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(439, _lib_num)):
+            elif cond(req(450, _lib_num)):
                 await self.builtin_funcs.llTargetOmega(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 2))
-            elif cond(req(440, _lib_num)):
+            elif cond(req(451, _lib_num)):
                 await self.builtin_funcs.llTargetRemove(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
-            elif cond(req(441, _lib_num)):
+            elif cond(req(452, _lib_num)):
                 await self.builtin_funcs.llTargetedEmail(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 2))
-            elif cond(req(443, _lib_num)):
+            elif cond(req(454, _lib_num)):
                 await self.builtin_funcs.llTeleportAgentGlobalCoords(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2Vector(_args, 1), await self.builtin_funcs.llList2Vector(_args, 2), await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 3))
-            elif cond(req(444, _lib_num)):
+            elif cond(req(455, _lib_num)):
                 await self.builtin_funcs.llTeleportAgentHome(await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 0))
-            elif cond(req(445, _lib_num)):
+            elif cond(req(456, _lib_num)):
                 await self.builtin_funcs.llTextBox(await self.builtin_funcs.llList2Key(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 2))
-            elif cond(req(446, _lib_num)):
+            elif cond(req(457, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llToLower(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(447, _lib_num)):
+            elif cond(req(458, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llToUpper(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(449, _lib_num)):
+            elif cond(req(460, _lib_num)):
                 await self.builtin_funcs.llTriggerSound(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Float(radd(_args, ((_args := []))), 1))
-            elif cond(req(450, _lib_num)):
+            elif cond(req(461, _lib_num)):
                 await self.builtin_funcs.llTriggerSoundLimited(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2Float(_args, 1), await self.builtin_funcs.llList2Vector(_args, 2), await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 3))
-            elif cond(req(451, _lib_num)):
+            elif cond(req(462, _lib_num)):
                 await self.builtin_funcs.llUnSit(await self.builtin_funcs.llList2Key(radd(_args, ((_args := []))), 0))
-            elif cond(req(452, _lib_num)):
+            elif cond(req(463, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llUnescapeURL(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(453, _lib_num)):
+            elif cond(req(464, _lib_num)):
                 await self.builtin_funcs.llUpdateCharacter(await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 0)))
-            elif cond(req(454, _lib_num)):
+            elif cond(req(465, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llUpdateKeyValue(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2String(_args, 1), await self.builtin_funcs.llList2Integer(_args, 2), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 3)), list)
                 _ret_type = 1
-            elif cond(req(455, _lib_num)):
+            elif cond(req(466, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llVecDist(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(456, _lib_num)):
+            elif cond(req(467, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llVecMag(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(457, _lib_num)):
+            elif cond(req(468, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llVecNorm(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(458, _lib_num)):
+            elif cond(req(469, _lib_num)):
                 await self.builtin_funcs.llVolumeDetect(await self.builtin_funcs.llList2Integer(radd(_args, ((_args := []))), 0))
-            elif cond(req(459, _lib_num)):
+            elif cond(req(470, _lib_num)):
                 await self.builtin_funcs.llWanderWithin(await self.builtin_funcs.llList2Vector(_args, 0), await self.builtin_funcs.llList2Vector(_args, 1), await self.JSONTypeParse(await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 2)))
-            elif cond(req(460, _lib_num)):
+            elif cond(req(471, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llWater(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(461, _lib_num)):
+            elif cond(req(472, _lib_num)):
                 await self.builtin_funcs.llWhisper(await self.builtin_funcs.llList2Integer(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1))
-            elif cond(req(462, _lib_num)):
+            elif cond(req(473, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llWind(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
-            elif cond(req(463, _lib_num)):
+            elif cond(req(474, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llXorBase64(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(464, _lib_num)):
+            elif cond(req(475, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llXorBase64Strings(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(465, _lib_num)):
+            elif cond(req(476, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llXorBase64StringsCorrect(await self.builtin_funcs.llList2String(_args, 0), await self.builtin_funcs.llList2String(radd(_args, ((_args := []))), 1)), list)
                 _ret_type = 1
-            elif cond(req(466, _lib_num)):
+            elif cond(req(477, _lib_num)):
                 _ret = typecast(await self.builtin_funcs.llsRGB2Linear(await self.builtin_funcs.llList2Vector(radd(_args, ((_args := []))), 0)), list)
                 _ret_type = 1
             else:
